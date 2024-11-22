@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.LilGlen.Recipes.models.Recipe;
+import com.LilGlen.Recipes.models.RecipeCategory;
 import com.LilGlen.Recipes.services.RecipeService;
 
 @RestController
@@ -28,7 +29,7 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<Recipe> getAllRecipes() {
         return recipeService.getAllRecipes();
     }
@@ -44,6 +45,12 @@ public class RecipeController {
     @GetMapping("/searchByIngredient")
     public ResponseEntity<List<Recipe>> findRecipesByIngredient(@RequestParam String ingredient) {
         List<Recipe> recipes = recipeService.findRecipesByIngredient(ingredient);
+        return ResponseEntity.ok(recipes);
+    }
+
+    @GetMapping("/searchByCategory")
+    public ResponseEntity<List<Recipe>> findRecipesByCategory(@RequestParam RecipeCategory category) {
+        List<Recipe> recipes = recipeService.findRecipesByCategory(category);
         return ResponseEntity.ok(recipes);
     }
 

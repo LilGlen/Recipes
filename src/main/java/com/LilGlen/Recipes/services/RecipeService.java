@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.LilGlen.Recipes.models.Recipe;
+import com.LilGlen.Recipes.models.RecipeCategory;
 import com.LilGlen.Recipes.repositories.RecipeRepository;
 
 import jakarta.transaction.Transactional;
@@ -68,5 +69,9 @@ public class RecipeService {
             throw new RuntimeException("Não é possível excluir pois há entidades relacionadas!");
         }
     }
+
+    public List<Recipe> findRecipesByCategory(RecipeCategory category) {
+    return recipeRepository.findByCategory(category);
+}
 
 }
