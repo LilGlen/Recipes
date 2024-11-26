@@ -1,8 +1,10 @@
 package com.LilGlen.Recipes.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +34,16 @@ public class RecipeController {
     @GetMapping
     public List<Recipe> getAllRecipes() {
         return recipeService.getAllRecipes();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Recipe> findById(@PathVariable Long id) {
+        try {
+            Recipe recipe = recipeService.findById(id);
+            return new ResponseEntity<>(recipe, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 
     // Pesquisa receitas pelo nome
